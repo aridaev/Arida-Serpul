@@ -105,12 +105,31 @@
 
                     @if($bankAccounts->where('tipe','ewallet')->count() > 0)
                     <p class="text-xs text-gray-500 mb-2">E-Wallet</p>
-                    <div class="grid grid-cols-2 gap-2">
+                    <div class="grid grid-cols-2 gap-2 mb-3">
                         @foreach($bankAccounts->where('tipe','ewallet') as $bank)
                         <label @click="metode='ewallet_{{ $bank->kode }}'" :class="metode==='ewallet_{{ $bank->kode }}' ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200 hover:border-gray-300'" class="border rounded-lg p-3 cursor-pointer transition">
                             <span class="text-sm font-semibold text-gray-800">{{ $bank->nama_bank }}</span>
                             <span class="block text-xs text-gray-500 mt-0.5">{{ $bank->no_rekening }}</span>
                             <span class="block text-xs text-gray-400">a/n {{ $bank->atas_nama }}</span>
+                        </label>
+                        @endforeach
+                    </div>
+                    @endif
+
+                    @if($bankAccounts->where('tipe','qris')->count() > 0)
+                    <p class="text-xs text-gray-500 mb-2">QRIS</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        @foreach($bankAccounts->where('tipe','qris') as $bank)
+                        <label @click="metode='qris_{{ $bank->kode }}'" :class="metode==='qris_{{ $bank->kode }}' ? 'border-indigo-500 bg-indigo-50' : 'border-gray-200 hover:border-gray-300'" class="border rounded-lg p-3 cursor-pointer transition text-center">
+                            @if($bank->logo_url)
+                            <img src="{{ $bank->logo_url }}" alt="{{ $bank->nama_bank }}" class="w-20 h-20 mx-auto mb-2 object-contain">
+                            @else
+                            <div class="w-16 h-16 mx-auto mb-2 bg-gray-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" stroke-width="1" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 013.75 9.375v-4.5zM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 01-1.125-1.125v-4.5zM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0113.5 9.375v-4.5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75zM6.75 16.5h.75v.75h-.75v-.75zM16.5 6.75h.75v.75h-.75v-.75zM13.5 13.5h.75v.75h-.75v-.75zM13.5 19.5h.75v.75h-.75v-.75zM19.5 13.5h.75v.75h-.75v-.75zM19.5 19.5h.75v.75h-.75v-.75zM16.5 16.5h.75v.75h-.75v-.75z"/></svg>
+                            </div>
+                            @endif
+                            <span class="text-sm font-semibold text-gray-800">{{ $bank->nama_bank }}</span>
+                            <span class="block text-xs text-gray-400 mt-0.5">a/n {{ $bank->atas_nama }}</span>
                         </label>
                         @endforeach
                     </div>

@@ -26,6 +26,7 @@
                     <select name="tipe" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm">
                         <option value="bank">Bank Transfer</option>
                         <option value="ewallet">E-Wallet</option>
+                        <option value="qris">QRIS</option>
                     </select>
                 </div>
                 <div>
@@ -63,7 +64,8 @@
                     <div class="min-w-0">
                         <div class="flex items-center gap-2">
                             <span class="font-semibold text-sm text-gray-800">{{ $bank->nama_bank }}</span>
-                            <span class="text-xs px-1.5 py-0.5 rounded {{ $bank->tipe === 'bank' ? 'bg-blue-50 text-blue-600' : 'bg-purple-50 text-purple-600' }}">{{ $bank->tipe === 'bank' ? 'Bank' : 'E-Wallet' }}</span>
+                            <span class="text-xs px-1.5 py-0.5 rounded {{ $bank->tipe === 'bank' ? 'bg-blue-50 text-blue-600' : ($bank->tipe === 'qris' ? 'bg-emerald-50 text-emerald-600' : 'bg-purple-50 text-purple-600') }}">{{ $bank->tipe === 'bank' ? 'Bank' : ($bank->tipe === 'qris' ? 'QRIS' : 'E-Wallet') }}</span>
+                            @if($bank->auto_verify)<span class="text-xs px-1.5 py-0.5 rounded bg-green-50 text-green-600">Auto-Verify</span>@endif
                             @if(!$bank->status)<span class="text-xs px-1.5 py-0.5 rounded bg-red-50 text-red-600">Nonaktif</span>@endif
                         </div>
                         <p class="text-xs text-gray-500 mt-0.5">{{ $bank->no_rekening }} &middot; {{ $bank->atas_nama }}</p>
